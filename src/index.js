@@ -40,6 +40,9 @@ mongoose.Query.prototype.exec = async function() {
   // if cache value is not found, fetch data from mongodb and cache it
   if (!cached) {
     const result = await exec.apply(this, arguments);
+    console.log(this.hashkey);
+    console.log(key);
+    console.log(JSON.stringify(result));
     client.hset(this.hashKey, key, JSON.stringify(result));
     client.expire(this.hashKey, this.expire);
 
